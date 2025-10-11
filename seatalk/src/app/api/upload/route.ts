@@ -70,7 +70,7 @@ export async function POST(req: Request) {
 
     // Sort headers and rows
     const headers = Array.from(allHeadersSet).sort((a, b) => a.localeCompare(b));
-    const rowsMatrix: (string | number | null | undefined)[][] = allRows.map((r) => headers.map((h) => r[h]));
+    const rowsMatrix: (string | number | null)[][] = allRows.map((r) => headers.map((h) => r[h] ?? null));
     rowsMatrix.sort((a, b) => {
       const av = a[0] ?? "";
       const bv = b[0] ?? "";
@@ -78,7 +78,8 @@ export async function POST(req: Request) {
     });
 
     // Export to Google Sheets
-    const result = await writeToGoogleSheet(headers, rowsMatrix);
+    const sheetData = [headers, ...rowsMatrix];
+    const result = await writeToGoogleSheet(sheetData);
 
     return NextResponse.json({ ok: true, message: `Exported ${result.wrote} rows to Google Sheets` });
   } catch (err) {
@@ -87,4 +88,3 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, message }, { status: 500 });
   }
 }
-
