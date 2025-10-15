@@ -18,7 +18,7 @@ export async function writeToGoogleSheet(
   rows: (string | number | null | undefined)[][]
 ): Promise<SheetsResult> {
   const spreadsheetId = getEnv("GOOGLE_SHEETS_SPREADSHEET_ID")!;
-  const sheetName = process.env.TARGET_SHEET_NAME || "data_integration";
+  const sheetName = process.env.TARGET_SHEET_NAME || "comma-separated vals";
   const clientEmail = getEnv("GOOGLE_SERVICE_ACCOUNT_EMAIL")!;
   let privateKey = getEnv("GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY")!;
   // Support newline replacement for env files
