@@ -31,7 +31,7 @@ export async function writeToGoogleSheet(values: (string | number | null)[][]) {
 if (!Array.isArray(values) || values.length === 0) throw new Error('values must be a non-empty 2D array');
 
 const spreadsheetId = getEnv('GOOGLE_SHEETS_SPREADSHEET_ID');
-const targetSheet = process.env.TARGET_SHEET_NAME || process.env.NEXT_PUBLIC_TARGET_SHEET_NAME || 'data_integration';
+const targetSheet = process.env.TARGET_SHEET_NAME || process.env.NEXT_PUBLIC_TARGET_SHEET_NAME || 'comma-separated vals';
 const saB64 = getEnv('SHEETS_SERVICE_ACCOUNT');
 
 const credsRaw = decodeServiceAccountFromBase64(saB64);
